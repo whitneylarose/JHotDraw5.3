@@ -130,9 +130,9 @@ public class MDI_DrawApplication extends DrawApplication implements InternalFram
 		internalFrame.setSize(200, 200);
 
 		// all registered listeners to the new internal frame
-		Enumeration enum = mdiListeners.elements();
-		while (enum.hasMoreElements()) {
-			internalFrame.addInternalFrameListener((InternalFrameListener)enum.nextElement());
+		Enumeration enumerator = mdiListeners.elements();
+		while (enumerator.hasMoreElements()) {
+			internalFrame.addInternalFrameListener((InternalFrameListener)enumerator.nextElement());
 		}
 
 		fireViewCreatedEvent(view); // frame now has connection all the way to heavyweight component

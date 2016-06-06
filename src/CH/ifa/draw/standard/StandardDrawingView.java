@@ -19,6 +19,7 @@ import java.util.*;
 import java.io.*;
 import CH.ifa.draw.util.*;
 import CH.ifa.draw.framework.*;
+import CH.ifa.draw.framework.Painter;
 
 /**
  * The standard implementation of DrawingView.
