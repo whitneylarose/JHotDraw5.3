@@ -1,7 +1,7 @@
 package CH.ifa.draw.contrib;
 
 /**
- * Created by Owner on 6/20/2016.
+ * Created by WHitney Nelson on 6/20/2016.
  */
 
 import edu.cmu.cs.glacier.qual.Immutable;
@@ -9,33 +9,30 @@ import edu.cmu.cs.glacier.qual.Immutable;
 //package CH.ifa.draw.figures;
         import java.awt.*;
         import java.beans.Transient;
-
-/**
- * Created by Owner on 6/16/2016.
- */
 @Immutable
 public class Rectangle {
 
     /**
      * The X coordinate of the upper-left corner of the <code>Rectangle</code>.
      */
-    private final int x;
+    public final int x;
 
     /**
      * The Y coordinate of the upper-left corner of the <code>Rectangle</code>.
      */
-    private final int y;
+    public final int y;
 
     /**
      * The width of the <code>Rectangle</code>.
      * @since 1.0
      */
-    private final int width;
+    public final int width;
+
 
     /**
      * The height of the <code>Rectangle</code>.
      */
-    private final int height;
+    public final int height;
 
     /*
      * JDK 1.1 serialVersionUID
