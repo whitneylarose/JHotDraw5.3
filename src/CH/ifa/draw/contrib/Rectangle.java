@@ -1,7 +1,7 @@
 package CH.ifa.draw.contrib;
 
 /**
- * Created by WHitney Nelson on 6/20/2016.
+ * Created by Whitney Nelson on 6/20/2016.
  */
 
 import edu.cmu.cs.glacier.qual.Immutable;
