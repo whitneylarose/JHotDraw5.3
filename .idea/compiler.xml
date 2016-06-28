@@ -16,8 +16,13 @@
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true">
         <processor name="edu.cmu.cs.glacier.GlacierChecker" />
-        <processorPath useClasspath="true" />
+        <processorPath useClasspath="true">
+          <entry name="$USER_HOME$/Documents/CMU/Glacier/Glacier.jar" />
+        </processorPath>
       </profile>
     </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_STRING" value="-AprintErrorStack" />
   </component>
 </project>

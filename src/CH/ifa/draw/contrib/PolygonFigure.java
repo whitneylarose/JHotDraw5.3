@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -18,6 +18,11 @@ import CH.ifa.draw.figures.*;
 import java.awt.*;
 import java.util.*;
 import java.io.IOException;
+//import java.awt.ImmutableRectangle;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
+
+
 
 /**
  * A scalable, rotatable polygon with an arbitrary number of points
@@ -55,7 +60,7 @@ public  class PolygonFigure extends AttributeFigure {
 		setInternalPolygon(new Polygon(p.xpoints, p.ypoints, p.npoints));
 	}
 
-	public Rectangle displayBox() {
+	public ImmutableRectangle displayBox() {
 		return bounds(getInternalPolygon());
 	}
 
@@ -76,7 +81,7 @@ public  class PolygonFigure extends AttributeFigure {
 
 
 	public void basicDisplayBox(Point origin, Point corner) {
-		Rectangle r = displayBox();
+		ImmutableRectangle r = displayBox();
 		int dx = origin.x - r.x;
 		int dy = origin.y - r.y;
 		getInternalPolygon().translate(dx, dy);
@@ -379,7 +384,7 @@ public  class PolygonFigure extends AttributeFigure {
 	/**
 	 * replacement for builtin Polygon.getBounds that doesn't always update?
 	 */
-	public static Rectangle bounds(Polygon p) {
+	public static ImmutableRectangle bounds(Polygon p) {
 		int minx = Integer.MAX_VALUE;
 		int miny = Integer.MAX_VALUE;
 		int maxx = Integer.MIN_VALUE;
@@ -402,7 +407,7 @@ public  class PolygonFigure extends AttributeFigure {
 			}
 		}
 
-		return new Rectangle(minx, miny, maxx - minx, maxy - miny);
+		return new ImmutableRectangle(minx, miny, maxx - minx, maxy - miny);
 	}
 
 	public static Point center(Polygon p) {

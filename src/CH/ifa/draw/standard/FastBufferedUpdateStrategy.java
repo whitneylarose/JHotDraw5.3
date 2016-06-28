@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -19,6 +19,8 @@ import CH.ifa.draw.framework.Drawing;
 import CH.ifa.draw.framework.DrawingView;
 import CH.ifa.draw.framework.FigureEnumeration;
 import CH.ifa.draw.framework.Painter;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * @author: WMG (INIT Copyright (C) 2000 All rights reserved)
@@ -48,11 +50,12 @@ public class FastBufferedUpdateStrategy implements Painter {
 			view.drawAll(imageGraphics);
 		}
 		else {
-			Rectangle viewClipRectangle = g.getClipBounds();
-			int nX1 = viewClipRectangle.x;
-			int nY1 = viewClipRectangle.y;
-			int nX2 = viewClipRectangle.x + viewClipRectangle.width;
-			int nY2 = viewClipRectangle.y + viewClipRectangle.height;
+			//ImmutableRectangle viewClipImmutableRectangle = g.getClipBounds();
+			ImmutableRectangle viewClipImmutableRectangle = new ImmutableRectangle(g.getClipBounds());
+			int nX1 = viewClipImmutableRectangle.x;
+			int nY1 = viewClipImmutableRectangle.y;
+			int nX2 = viewClipImmutableRectangle.x + viewClipImmutableRectangle.width;
+			int nY2 = viewClipImmutableRectangle.y + viewClipImmutableRectangle.height;
 
 			if (nX1 < 0) {
 				nX1 = 0;
@@ -67,10 +70,10 @@ public class FastBufferedUpdateStrategy implements Painter {
 				nY2 = 0;
 			}
 
-			Rectangle viewClipRectangle2 = new Rectangle(nX1, nY1, nX2-nX1, nY2-nY1);
+			ImmutableRectangle viewClipImmutableRectangle2 = new ImmutableRectangle(nX1, nY1, nX2-nX1, nY2-nY1);
 
 			Drawing theDrawing = view.drawing();
-			FigureEnumeration fe = theDrawing.figures(viewClipRectangle2);
+			FigureEnumeration fe = theDrawing.figures(viewClipImmutableRectangle2);
 
 			Graphics imageGraphics = _scratchPadBufferedImage.getGraphics();
 			imageGraphics.setColor(view.getBackground());

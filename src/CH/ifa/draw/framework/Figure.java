@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -15,6 +15,8 @@ import CH.ifa.draw.util.*;
 import java.awt.*;
 import java.util.*;
 import java.io.Serializable;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * The interface of a graphical figure. A figure knows
@@ -78,7 +80,7 @@ public interface Figure
 	 * Gets the display box of a figure
 	 * @see #basicDisplayBox
 	 */
-	public Rectangle displayBox();
+	public ImmutableRectangle displayBox();
 
 	/**
 	 * Draws the figure.
@@ -137,7 +139,7 @@ public interface Figure
 	 * have to override basicDisplayBox
 	 * @see #displayBox
 	 */
-	public void displayBox(Rectangle r);
+	public void displayBox(ImmutableRectangle r);
 
 	/**
 	 * Checks whether the given figure is contained in this figure.

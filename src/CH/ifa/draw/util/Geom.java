@@ -4,15 +4,17 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
 
 package CH.ifa.draw.util;
 
-import java.awt.Rectangle;
+//import java.awt.ImmutableRectangle;
 import java.awt.Point;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * Some geometric utilities.
@@ -30,8 +32,9 @@ public class Geom {
 							int x2, int y2,
 							int px, int py) {
 
-		Rectangle r = new Rectangle(new Point(x1, y1));
-		r.add(x2, y2);
+		//ImmutableRectangle r = new ImmutableRectangle(new Point(x1, y1));
+		ImmutableRectangle r = new ImmutableRectangle();
+		r.add(new Point (x1,x2), new Point (x2, y2));
 		r.grow(2, 2);
 		if (! r.contains(px,py)) {
 			return false;
@@ -83,23 +86,23 @@ public class Geom {
 		return direction;
 	}
 
-	static public Point south(Rectangle r) {
+	static public Point south(ImmutableRectangle r) {
 		return new Point(r.x + r.width /2, r.y + r.height);
 	}
 
-	static public Point center(Rectangle r) {
+	static public Point center(ImmutableRectangle r) {
 		return new Point(r.x + r.width /2, r.y + r.height/2);
 	}
 
-	static public Point west(Rectangle r) {
+	static public Point west(ImmutableRectangle r) {
 		return new Point(r.x, r.y + r.height/ 2);
 	}
 
-	static public Point east(Rectangle r) {
+	static public Point east(ImmutableRectangle r) {
 		return new Point(r.x+r.width, r.y + r.height/ 2);
 	}
 
-	static public Point north(Rectangle r) {
+	static public Point north(ImmutableRectangle r) {
 		return new Point(r.x+r.width/2, r.y);
 	}
 
@@ -132,18 +135,18 @@ public class Geom {
 	}
 
 	/**
-	 * Gets the angle of a point relative to a rectangle.
+	 * Gets the angle of a point relative to a ImmutableRectangle.
 	 */
-	static public double pointToAngle(Rectangle r, Point p) {
+	static public double pointToAngle(ImmutableRectangle r, Point p) {
 		int px = p.x - (r.x + r.width/2);
 		int py = p.y - (r.y + r.height/2);
 		return Math.atan2(py*r.width, px*r.height);
 	}
 
 	/**
-	 * Gets the point on a rectangle that corresponds to the given angle.
+	 * Gets the point on a ImmutableRectangle that corresponds to the given angle.
 	 */
-	static public Point angleToPoint(Rectangle r, double angle) {
+	static public Point angleToPoint(ImmutableRectangle r, double angle) {
 		double si = Math.sin(angle);
 		double co = Math.cos(angle);
 		double e = 0.0001;
@@ -178,7 +181,7 @@ public class Geom {
 	/**
 	 * Gets the point on an oval that corresponds to the given angle.
 	 */
-	static public Point ovalAngleToPoint(Rectangle r, double angle) {
+	static public Point ovalAngleToPoint(ImmutableRectangle r, double angle) {
 		Point center = Geom.center(r);
 		Point p = Geom.polarToPoint(angle, r.width/2, r.height/2);
 		return new Point(center.x + p.x, center.y + p.y);

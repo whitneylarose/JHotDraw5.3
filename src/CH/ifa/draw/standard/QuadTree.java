@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -16,6 +16,8 @@ import java.awt.geom.Rectangle2D;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Vector;
+//import CH.ifa.draw.contrib.Rectangle2D;
+
 
 /**
  * @author: WMG (INIT Copyright (C) 2000 All rights reserved)
@@ -218,7 +220,7 @@ class QuadTree {
 
 	//___________________________________________________PRIVATE METHODS
 
-	private void _init(int nMaxTreeDepth, Rectangle2D absoluteBoundingRectangle2D) {
+	private void _init(int nMaxTreeDepth,Rectangle2D absoluteBoundingRectangle2D) {
 		_absoluteBoundingRectangle2D.setRect(absoluteBoundingRectangle2D);
 		_nMaxTreeDepth = nMaxTreeDepth;
 

@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -15,6 +15,8 @@ import CH.ifa.draw.framework.*;
 import CH.ifa.draw.util.*;
 import java.util.Enumeration;
 import java.awt.*;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * Command to insert the clipboard into the drawing.
@@ -48,7 +50,7 @@ public class PasteCommand extends FigureTransferCommand {
 				return;
 			}
 
-			Rectangle r = bounds(getUndoActivity().getAffectedFigures());
+			ImmutableRectangle r = bounds(getUndoActivity().getAffectedFigures());
 			view().clearSelection();
 
 			// get an enumeration of inserted figures
@@ -63,8 +65,8 @@ public class PasteCommand extends FigureTransferCommand {
 		return Clipboard.getClipboard().getContents() != null;
 	}
 
-	Rectangle bounds(Enumeration k) {
-		Rectangle r = ((Figure) k.nextElement()).displayBox();
+	ImmutableRectangle bounds(Enumeration k) {
+		ImmutableRectangle r = ((Figure) k.nextElement()).displayBox();
 		while (k.hasMoreElements()) {
 			r.add(((Figure) k.nextElement()).displayBox());
 		}

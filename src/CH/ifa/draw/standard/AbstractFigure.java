@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -13,6 +13,8 @@ package CH.ifa.draw.standard;
 
 import CH.ifa.draw.util.*;
 import CH.ifa.draw.framework.*;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 import java.awt.*;
 import java.util.*;
@@ -96,7 +98,7 @@ public abstract class AbstractFigure implements Figure {
 	/**
 	 * Gets the display box of a figure.
 	 */
-	public abstract Rectangle displayBox();
+	public abstract ImmutableRectangle displayBox();
 
 	/**
 	 * Returns the handles of a Figure that can be used
@@ -159,7 +161,7 @@ public abstract class AbstractFigure implements Figure {
 	 * have to override basicDisplayBox
 	 * @see #displayBox
 	 */
-	public void displayBox(Rectangle r) {
+	public void displayBox(ImmutableRectangle r) {
 		displayBox(new Point(r.x, r.y), new Point(r.x+r.width, r.y+r.height));
 	}
 
@@ -241,7 +243,7 @@ public abstract class AbstractFigure implements Figure {
 	 */
 	public void invalidate() {
 		if (fListener != null) {
-			Rectangle r = displayBox();
+			ImmutableRectangle r = displayBox();
 			r.grow(Handle.HANDLESIZE, Handle.HANDLESIZE);
 			fListener.figureInvalidated(new FigureChangeEvent(this, r));
 		}

@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -16,6 +16,8 @@ import CH.ifa.draw.framework.*;
 import java.awt.*;
 import java.util.*;
 import java.io.*;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * The standard implementation of the Drawing interface.
@@ -54,7 +56,7 @@ public class StandardDrawing extends CompositeFigure implements Drawing {
 	public StandardDrawing() {
 		super();
 		fListeners = new Vector(2);
-		init(new Rectangle(-500, -500, 2000, 2000));
+		init(new ImmutableRectangle(-500, -500, 2000, 2000));
 	}
 
 	/**
@@ -112,7 +114,7 @@ public class StandardDrawing extends CompositeFigure implements Drawing {
 	}
 
 	/**
-	 * Invalidates a rectangle and merges it with the
+	 * Invalidates a ImmutableRectangle and merges it with the
 	 * existing damaged area.
 	 * @see FigureChangeListener
 	 */
@@ -120,7 +122,7 @@ public class StandardDrawing extends CompositeFigure implements Drawing {
 		if (fListeners != null) {
 			for (int i = 0; i < fListeners.size(); i++) {
 				DrawingChangeListener l = (DrawingChangeListener)fListeners.elementAt(i);
-				l.drawingInvalidated(new DrawingChangeEvent(this, e.getInvalidatedRectangle()));
+				l.drawingInvalidated(new DrawingChangeEvent(this, e.getInvalidatedImmutableRectangle()));
 			}
 		}
 	}
@@ -153,18 +155,18 @@ public class StandardDrawing extends CompositeFigure implements Drawing {
 	/**
 	 * Gets the display box. This is the union of all figures.
 	 */
-	public Rectangle displayBox() {
+	public ImmutableRectangle displayBox() {
 		if (fFigures.size() > 0) {
 			FigureEnumeration k = figures();
 
-			Rectangle r = k.nextFigure().displayBox();
+			ImmutableRectangle r = k.nextFigure().displayBox();
 
 			while (k.hasMoreElements()) {
 				r.add(k.nextFigure().displayBox());
 			}
 			return r;
 		}
-		return new Rectangle(0, 0, 0, 0);
+		return new ImmutableRectangle(0, 0, 0, 0);
 	}
 
 	public void basicDisplayBox(Point p1, Point p2) {

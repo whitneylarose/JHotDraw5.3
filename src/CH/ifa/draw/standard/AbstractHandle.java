@@ -4,12 +4,14 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
 
 package CH.ifa.draw.standard;
+
+import CH.ifa.draw.contrib.ImmutableRectangle;
 
 import CH.ifa.draw.framework.*;
 import CH.ifa.draw.util.Undoable;
@@ -114,9 +116,9 @@ public abstract class AbstractHandle implements Handle {
 	/**
 	 * Gets the display box of the handle.
 	 */
-	public Rectangle displayBox() {
+	public ImmutableRectangle displayBox() {
 		Point p = locate();
-		return new Rectangle(
+		return new ImmutableRectangle(
 				p.x - HANDLESIZE / 2,
 				p.y - HANDLESIZE / 2,
 				HANDLESIZE,
@@ -134,7 +136,7 @@ public abstract class AbstractHandle implements Handle {
 	 * Draws this handle.
 	 */
 	public void draw(Graphics g) {
-		Rectangle r = displayBox();
+		ImmutableRectangle r = displayBox();
 
 		g.setColor(Color.white);
 		g.fillRect(r.x, r.y, r.width, r.height);

@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -18,6 +18,8 @@ import java.awt.image.ImageObserver;
 import CH.ifa.draw.framework.*;
 import CH.ifa.draw.standard.*;
 import CH.ifa.draw.util.*;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * A Figure that shows an Image.
@@ -32,7 +34,7 @@ public  class ImageFigure
 
 	private String   fFileName;
 	private transient Image fImage;
-	private Rectangle fDisplayBox;
+	private ImmutableRectangle fDisplayBox;
 	/*
 	 * Serialization support.
 	 */
@@ -48,14 +50,17 @@ public  class ImageFigure
 	public ImageFigure(Image image, String fileName, Point origin) {
 		fFileName = fileName;
 		fImage = image;
-		fDisplayBox = new Rectangle(origin.x, origin.y, 0, 0);
-		fDisplayBox.width = fImage.getWidth(this);
-		fDisplayBox.height = fImage.getHeight(this);
+		fDisplayBox = new ImmutableRectangle(origin.x, origin.y, 0, 0);
+//		fDisplayBox.width = fImage.getWidth(this);
+//		fDisplayBox.height = fImage.getHeight(this);
+		int fWidth = fImage.getWidth(this);
+		int fHeight = fImage.getHeight(this);
+		fDisplayBox = new ImmutableRectangle(origin.x, origin.y, fWidth, fHeight);
 	}
 
 	public void basicDisplayBox(Point origin, Point corner) {
-		fDisplayBox = new Rectangle(origin);
-		fDisplayBox.add(corner);
+		//fDisplayBox = new ImmutableRectangle(origin);
+		fDisplayBox.add(origin, corner);
 	}
 
 	public Vector handles() {
@@ -64,8 +69,8 @@ public  class ImageFigure
 		return handles;
 	}
 
-	public Rectangle displayBox() {
-		return new Rectangle(
+	public ImmutableRectangle displayBox() {
+		return new ImmutableRectangle(
 			fDisplayBox.x,
 			fDisplayBox.y,
 			fDisplayBox.width,
@@ -73,7 +78,7 @@ public  class ImageFigure
 	}
 
 	protected void basicMoveBy(int x, int y) {
-		fDisplayBox.translate(x,y);
+		fDisplayBox.translate(fDisplayBox, x,y);
 	}
 
 	public void draw(Graphics g) {
@@ -135,7 +140,7 @@ public  class ImageFigure
 	*/
 	public void read(StorableInput dr) throws IOException {
 		super.read(dr);
-		fDisplayBox = new Rectangle(
+		fDisplayBox = new ImmutableRectangle(
 			dr.readInt(),
 			dr.readInt(),
 			dr.readInt(),

@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -15,6 +15,8 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import CH.ifa.draw.framework.*;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * SelectAreaTracker implements a rubberband selection of an area.
@@ -23,7 +25,7 @@ import CH.ifa.draw.framework.*;
  */
 public class SelectAreaTracker extends AbstractTool {
 
-	private Rectangle fSelectGroup;
+	private ImmutableRectangle fSelectGroup;
 
 	public SelectAreaTracker(DrawingEditor newDrawingEditor) {
 		super(newDrawingEditor);
@@ -49,8 +51,8 @@ public class SelectAreaTracker extends AbstractTool {
 	}
 
 	private void rubberBand(int x1, int y1, int x2, int y2) {
-		fSelectGroup = new Rectangle(new Point(x1, y1));
-		fSelectGroup.add(new Point(x2, y2));
+		//fSelectGroup = new ImmutableRectangle(new Point(x1, y1));
+		fSelectGroup.add(new Point(x1,y1), new Point(x2, y2));
 		drawXORRect(fSelectGroup);
 	}
 
@@ -58,7 +60,7 @@ public class SelectAreaTracker extends AbstractTool {
 		drawXORRect(fSelectGroup);
 	}
 
-	private void drawXORRect(Rectangle r) {
+	private void drawXORRect(ImmutableRectangle r) {
 		Graphics g = view().getGraphics();
 		if ( g != null ) {
 			try {
@@ -76,7 +78,7 @@ public class SelectAreaTracker extends AbstractTool {
 		FigureEnumeration k = drawing().figuresReverse();
 		while (k.hasMoreElements()) {
 			Figure figure = k.nextFigure();
-			Rectangle r2 = figure.displayBox();
+			ImmutableRectangle r2 = figure.displayBox();
 			if (fSelectGroup.contains(r2.x, r2.y) && fSelectGroup.contains(r2.x+r2.width, r2.y+r2.height)) {
 				if (toggle) {
 					view().toggleSelection(figure);

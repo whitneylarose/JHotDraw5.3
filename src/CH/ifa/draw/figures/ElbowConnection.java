@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -17,6 +17,8 @@ import java.io.IOException;
 import CH.ifa.draw.framework.*;
 import CH.ifa.draw.standard.*;
 import CH.ifa.draw.util.*;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * A LineConnection that constrains a connection to
@@ -76,8 +78,8 @@ public  class ElbowConnection extends LineConnection {
 		}
 		else {
 			
-			Rectangle r1 = getStartConnector().owner().displayBox();
-			Rectangle r2 = getEndConnector().owner().displayBox();
+			ImmutableRectangle r1 = getStartConnector().owner().displayBox();
+			ImmutableRectangle r2 = getEndConnector().owner().displayBox();
 
 			int x1, y1, x2, y2;
 			int dir = Geom.direction(r1.x + r1.width/2, r1.y + r1.height/2,
@@ -99,7 +101,7 @@ public  class ElbowConnection extends LineConnection {
 class ElbowTextLocator extends AbstractLocator {
 	public Point locate(Figure owner) {
 		Point p = owner.center();
-		Rectangle r = owner.displayBox();
+		ImmutableRectangle r = owner.displayBox();
 		return new Point(p.x, p.y-10); // hack
 	}
 }

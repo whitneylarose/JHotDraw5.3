@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -42,14 +42,14 @@ public abstract class AutoscrollHelper {
 	 * Override this method to call getVisibleRect() on your JComponent
 	 * @see JComponent#getVisibleRect
 	 */
-	public abstract Rectangle getVisibleRect();
+	public abstract ImmutableRectangle getVisibleRect();
 
 	/**
-	 * Override this method to call scrollRectToVisible(Rectangle aRect) on
+	 * Override this method to call scrollRectToVisible(ImmutableRectangle aRect) on
 	 * your component
 	 * @see JComponent#scrollRectToVisible
 	 */
-	public abstract void scrollRectToVisible(Rectangle aRect);
+	public abstract void scrollRectToVisible(ImmutableRectangle aRect);
 	/**
 	 * Part of the autoscrolls interface
 	 *
@@ -58,7 +58,7 @@ public abstract class AutoscrollHelper {
 		//System.out.println("mouse at " + location);
 		int top = 0, left = 0, bottom = 0, right = 0;
 		Dimension size = getSize();
-		Rectangle rect = getVisibleRect();
+		ImmutableRectangle rect = getVisibleRect();
 		int bottomEdge = rect.y + rect.height;
 		int rightEdge = rect.x + rect.width;
 		if (location.y - rect.y <= autoscrollMargin && rect.y > 0)
@@ -69,13 +69,14 @@ public abstract class AutoscrollHelper {
 			bottom = autoscrollMargin;
 		if (rightEdge - location.x <= autoscrollMargin && rightEdge < size.width)
 			right = autoscrollMargin;
-		rect.x += right - left;
-		rect.y += bottom - top;
+		int rect_x = rect.x + right - left;
+		int rect_y = rect.y + bottom - top;
+		new ImmutableRectangle(rect_x, rect_y);
 		scrollRectToVisible(rect);
 	}
 	public Insets getAutoscrollInsets() {
 		Dimension size = getSize();
-		Rectangle rect = getVisibleRect();
+		ImmutableRectangle rect = getVisibleRect();
 		autoscrollInsets.top = rect.y + autoscrollMargin;
 		autoscrollInsets.left = rect.x + autoscrollMargin;
 		autoscrollInsets.bottom = size.height - (rect.y + rect.height) + autoscrollMargin;

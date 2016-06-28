@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -20,6 +20,8 @@ import java.io.*;
 import CH.ifa.draw.util.*;
 import CH.ifa.draw.framework.*;
 import CH.ifa.draw.framework.Painter;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * The standard implementation of DrawingView.
@@ -57,7 +59,7 @@ public  class StandardDrawingView
 	/**
 	 * the accumulated damaged area
 	 */
-	private transient Rectangle fDamage = null;
+	private transient ImmutableRectangle fDamage = null;
 
 	/**
 	 * The list of currently selected figures.
@@ -715,7 +717,7 @@ counter++;
 	}
 
 	public void drawingInvalidated(DrawingChangeEvent e) {
-		Rectangle r = e.getInvalidatedRectangle();
+		ImmutableRectangle r = e.getInvalidatedImmutableRectangle();
 		if (fDamage == null) {
 			fDamage = r;
 		}
@@ -885,7 +887,7 @@ counter++;
 		FigureEnumeration k = drawing().figures();
 		Dimension d = new Dimension(0, 0);
 		while (k.hasMoreElements()) {
-			Rectangle r = k.nextFigure().displayBox();
+			ImmutableRectangle r = k.nextFigure().displayBox();
 			d.width = Math.max(d.width, r.x+r.width);
 			d.height = Math.max(d.height, r.y+r.height);
 		}
@@ -944,11 +946,13 @@ counter++;
 		public Dimension getSize() {
 			return StandardDrawingView.this.getSize();
 		}
-		public Rectangle getVisibleRect() {
-			return StandardDrawingView.this.getVisibleRect();
+		public ImmutableRectangle getVisibleRect() {
+			return new ImmutableRectangle(this.getVisibleRect());
+			//return StandardDrawingView.this.getVisibleRect();
 		}
-		public void scrollRectToVisible(Rectangle aRect) {
-			StandardDrawingView.this.scrollRectToVisible(aRect);
+		public void scrollRectToVisible(ImmutableRectangle aRect) {
+			new ImmutableRectangle(aRect);
+			//StandardDrawingView.this.scrollRectToVisible(aRect);
 		}
 	}
 	

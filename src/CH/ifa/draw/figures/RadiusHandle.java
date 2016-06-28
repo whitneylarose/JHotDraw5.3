@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -17,9 +17,11 @@ import CH.ifa.draw.util.Geom;
 import CH.ifa.draw.util.Undoable;
 import CH.ifa.draw.util.UndoableAdapter;
 import java.awt.*;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
- * A Handle to manipulate the radius of a round corner rectangle.
+ * A Handle to manipulate the radius of a round corner ImmutableRectangle.
  *
  * @version <$CURRENT_VERSION$>
  */
@@ -27,7 +29,7 @@ class RadiusHandle extends AbstractHandle {
 
 	private static final int OFFSET = 4;
 
-	public RadiusHandle(RoundRectangleFigure owner) {
+	public RadiusHandle(RoundImmutableRectangleFigure owner) {
 		super(owner);
 	}
 
@@ -35,14 +37,14 @@ class RadiusHandle extends AbstractHandle {
 		setUndoActivity(createUndoActivity(view));
 		getUndoActivity().setAffectedFigures(new SingleFigureEnumerator(owner()));
 		((RadiusHandle.UndoActivity)getUndoActivity()).
-			setOldRadius(((RoundRectangleFigure)owner()).getArc());
+			setOldRadius(((RoundImmutableRectangleFigure)owner()).getArc());
 	}
 
 	public void invokeStep (int x, int y, int anchorX, int anchorY, DrawingView view) {
 		int dx = x-anchorX;
 		int dy = y-anchorY;
-		RoundRectangleFigure owner = (RoundRectangleFigure)owner();
-		Rectangle r = owner.displayBox();
+		RoundImmutableRectangleFigure owner = (RoundImmutableRectangleFigure)owner();
+		ImmutableRectangle r = owner.displayBox();
 		Point originalRadius = ((RadiusHandle.UndoActivity)getUndoActivity()).getOldRadius();
 		int rx = Geom.range(0, r.width, 2*(originalRadius.x/2 + dx));
 		int ry = Geom.range(0, r.height, 2*(originalRadius.y/2 + dy));
@@ -50,7 +52,7 @@ class RadiusHandle extends AbstractHandle {
 	}
 
 	public void invokeEnd(int x, int y, int anchorX, int anchorY, DrawingView view) {
-		Point currentRadius = ((RoundRectangleFigure)owner()).getArc();
+		Point currentRadius = ((RoundImmutableRectangleFigure)owner()).getArc();
 		Point originalRadius = ((RadiusHandle.UndoActivity)getUndoActivity()).getOldRadius();
 		// there has been no change so there is nothing to undo
 		if ((currentRadius.x == originalRadius.x) && (currentRadius.y == originalRadius.y)) {
@@ -59,14 +61,14 @@ class RadiusHandle extends AbstractHandle {
 	}
 
 	public Point locate() {
-		RoundRectangleFigure owner = (RoundRectangleFigure)owner();
+		RoundImmutableRectangleFigure owner = (RoundImmutableRectangleFigure)owner();
 		Point radius = owner.getArc();
-		Rectangle r = owner.displayBox();
+		ImmutableRectangle r = owner.displayBox();
 		return new Point(r.x+radius.x/2+OFFSET, r.y+radius.y/2+OFFSET);
 	}
 
 	public void draw(Graphics g) {
-		Rectangle r = displayBox();
+		ImmutableRectangle r = displayBox();
 
 		g.setColor(Color.yellow);
 		g.fillOval(r.x, r.y, r.width, r.height);
@@ -113,7 +115,7 @@ class RadiusHandle extends AbstractHandle {
 			if (!fe.hasMoreElements()) {
 				return false;
 			}
-			RoundRectangleFigure currentFigure = (RoundRectangleFigure)fe.nextFigure();
+			RoundImmutableRectangleFigure currentFigure = (RoundImmutableRectangleFigure)fe.nextFigure();
 			Point figureRadius = currentFigure.getArc();
 			currentFigure.setArc(getOldRadius().x, getOldRadius().y);
 			setOldRadius(figureRadius);

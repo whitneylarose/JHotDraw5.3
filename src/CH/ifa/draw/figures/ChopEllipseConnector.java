@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -15,7 +15,7 @@ import java.awt.*;
 import CH.ifa.draw.framework.*;
 import CH.ifa.draw.standard.*;
 import CH.ifa.draw.util.Geom;
-
+import CH.ifa.draw.contrib.ImmutableRectangle;
 /**
  * A ChopEllipseConnector locates a connection point by
  * chopping the connection at the ellipse defined by the
@@ -38,7 +38,7 @@ public class ChopEllipseConnector extends ChopBoxConnector {
 	}
 
 	protected Point chop(Figure target, Point from) {
-		Rectangle r = target.displayBox();
+		ImmutableRectangle r = target.displayBox();
 		double angle = Geom.pointToAngle(r, from);
 		return Geom.ovalAngleToPoint(r, angle);
 	}

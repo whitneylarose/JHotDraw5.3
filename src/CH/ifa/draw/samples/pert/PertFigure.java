@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -12,6 +12,7 @@
 package CH.ifa.draw.samples.pert;
 
 import java.awt.*;
+import CH.ifa.draw.contrib.ImmutableRectangle;
 import java.util.*;
 import java.io.*;
 import CH.ifa.draw.framework.*;
@@ -24,7 +25,7 @@ import CH.ifa.draw.util.*;
  */
 public class PertFigure extends CompositeFigure {
 	private static final int BORDER = 3;
-	private Rectangle fDisplayBox;
+	private ImmutableRectangle fDisplayBox;
 	private Vector fPreTasks;
 	private Vector fPostTasks;
 
@@ -96,12 +97,12 @@ public class PertFigure extends CompositeFigure {
 	}
 
 	protected void basicMoveBy(int x, int y) {
-		fDisplayBox.translate(x, y);
+		fDisplayBox.translate(fDisplayBox,x, y);
 		super.basicMoveBy(x, y);
 	}
 
-	public Rectangle displayBox() {
-		return new Rectangle(
+	public ImmutableRectangle displayBox() {
+		return new ImmutableRectangle(
 			fDisplayBox.x,
 			fDisplayBox.y,
 			fDisplayBox.width,
@@ -109,18 +110,18 @@ public class PertFigure extends CompositeFigure {
 	}
 
 	public void basicDisplayBox(Point origin, Point corner) {
-		fDisplayBox = new Rectangle(origin);
-		fDisplayBox.add(corner);
+		//fDisplayBox = new ImmutableRectangle(origin);
+		fDisplayBox.add(origin, corner);
 		layout();
 	}
 
 	private void drawBorder(Graphics g) {
 		super.draw(g);
 
-		Rectangle r = displayBox();
+		ImmutableRectangle r = displayBox();
 
 		Figure f = figureAt(0);
-		Rectangle rf = f.displayBox();
+		ImmutableRectangle rf = f.displayBox();
 		g.setColor(Color.gray);
 		g.drawLine(r.x, r.y+rf.height+2, r.x+r.width, r.y + rf.height+2);
 		g.setColor(Color.white);
@@ -154,7 +155,7 @@ public class PertFigure extends CompositeFigure {
 	private void initialize() {
 		fPostTasks = new Vector();
 		fPreTasks = new Vector();
-		fDisplayBox = new Rectangle(0, 0, 0, 0);
+		fDisplayBox = new ImmutableRectangle(0, 0, 0, 0);
 
 		Font f = new Font("Helvetica", Font.PLAIN, 12);
 		Font fb = new Font("Helvetica", Font.BOLD, 12);
@@ -196,8 +197,16 @@ public class PertFigure extends CompositeFigure {
 			extent.height += partExtent.height;
 			partOrigin.y += partExtent.height;
 		}
-		fDisplayBox.width = extent.width + 2*BORDER;
-		fDisplayBox.height = extent.height + 2*BORDER;
+
+
+		//create a new ImmutableRectangle
+//		fDisplayBox .width =  extent.width + 2*BORDER;
+//		fDisplayBox.height = extent.height + 2*BORDER;
+		int fWidth =  extent.width + 2*BORDER;
+		int fHeight = extent.height + 2*BORDER;
+
+		fDisplayBox = new ImmutableRectangle(fDisplayBox.x, fDisplayBox.y, fWidth, fHeight);
+
 	}
 
 	private boolean needsLayout() {
@@ -283,7 +292,7 @@ public class PertFigure extends CompositeFigure {
 
 	public void read(StorableInput dr) throws IOException {
 		super.read(dr);
-		fDisplayBox = new Rectangle(
+		fDisplayBox = new ImmutableRectangle(
 			dr.readInt(),
 			dr.readInt(),
 			dr.readInt(),
@@ -294,7 +303,7 @@ public class PertFigure extends CompositeFigure {
 	}
 
 	public Insets connectionInsets() {
-		Rectangle r = fDisplayBox;
+		ImmutableRectangle r = fDisplayBox;
 		int cx = r.width/2;
 		int cy = r.height/2;
 		return new Insets(cy, cx, cy, cx);

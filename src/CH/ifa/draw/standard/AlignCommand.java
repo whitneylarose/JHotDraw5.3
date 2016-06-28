@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -16,6 +16,8 @@ import CH.ifa.draw.util.UndoableAdapter;
 import CH.ifa.draw.util.Undoable;
 import java.util.*;
 import java.awt.*;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * Align a selection of figures relative to each other.
@@ -29,8 +31,8 @@ public class AlignCommand extends AbstractCommand {
 		 * align left sides
 		 */
 		public final static Alignment LEFTS = new Alignment("Lefts") {
-			public void moveBy(Figure f, Rectangle anchor) {
-				Rectangle rr = f.displayBox();
+			public void moveBy(Figure f, ImmutableRectangle anchor) {
+				ImmutableRectangle rr = f.displayBox();
 				f.moveBy(anchor.x-rr.x, 0);
 			}
 		};
@@ -39,8 +41,8 @@ public class AlignCommand extends AbstractCommand {
 		 * align centers (horizontally)
 		 */
 		public final static Alignment CENTERS = new Alignment("Centers") {
-			public void moveBy(Figure f, Rectangle anchor) {
-				Rectangle rr = f.displayBox();
+			public void moveBy(Figure f, ImmutableRectangle anchor) {
+				ImmutableRectangle rr = f.displayBox();
 				f.moveBy((anchor.x+anchor.width/2) - (rr.x+rr.width/2), 0);
 			}
 		};
@@ -49,8 +51,8 @@ public class AlignCommand extends AbstractCommand {
 		 * align right sides
 		 */
 		public final static Alignment RIGHTS = new Alignment("Rights") {
-			public void moveBy(Figure f, Rectangle anchor) {
-				Rectangle rr = f.displayBox();
+			public void moveBy(Figure f, ImmutableRectangle anchor) {
+				ImmutableRectangle rr = f.displayBox();
 				f.moveBy((anchor.x+anchor.width) - (rr.x+rr.width), 0);
 			}
 		};
@@ -59,8 +61,8 @@ public class AlignCommand extends AbstractCommand {
 		 * align tops
 		 */
 		public final static Alignment TOPS = new Alignment("Tops") {
-			public void moveBy(Figure f, Rectangle anchor) {
-				Rectangle rr = f.displayBox();
+			public void moveBy(Figure f, ImmutableRectangle anchor) {
+				ImmutableRectangle rr = f.displayBox();
 				f.moveBy(0, anchor.y-rr.y);
 			}
 		};
@@ -69,8 +71,8 @@ public class AlignCommand extends AbstractCommand {
 		 * align middles (vertically)
 		 */
 		public final static Alignment MIDDLES = new Alignment("Middles") {
-			public void moveBy(Figure f, Rectangle anchor) {
-				Rectangle rr = f.displayBox();
+			public void moveBy(Figure f, ImmutableRectangle anchor) {
+				ImmutableRectangle rr = f.displayBox();
 				f.moveBy(0, (anchor.y+anchor.height/2) - (rr.y+rr.height/2));
 			}
 		};
@@ -79,8 +81,8 @@ public class AlignCommand extends AbstractCommand {
 		 * align bottoms
 		 */
 		public final static Alignment BOTTOMS = new Alignment("Bottoms") {
-			public void moveBy(Figure f, Rectangle anchor) {
-				Rectangle rr = f.displayBox();
+			public void moveBy(Figure f, ImmutableRectangle anchor) {
+				ImmutableRectangle rr = f.displayBox();
 				f.moveBy(0, (anchor.y+anchor.height) - (rr.y+rr.height));
 			}
 		};
@@ -103,7 +105,7 @@ public class AlignCommand extends AbstractCommand {
 			myDescription = newDescription;
 		}
 		
-		public abstract void moveBy(Figure f, Rectangle anchor);
+		public abstract void moveBy(Figure f, ImmutableRectangle anchor);
 	}
 
 	private Alignment myAlignment;
@@ -203,7 +205,7 @@ public class AlignCommand extends AbstractCommand {
 		public void alignAffectedFigures(Alignment applyAlignment) {
 			FigureEnumeration fe = getAffectedFigures();
 			Figure anchorFigure = fe.nextFigure();
-			Rectangle r = anchorFigure.displayBox();
+			ImmutableRectangle r = anchorFigure.displayBox();
 	
 			while (fe.hasMoreElements()) {
 				Figure f = fe.nextFigure();

@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -15,6 +15,8 @@ import java.awt.*;
 import CH.ifa.draw.framework.*;
 import CH.ifa.draw.standard.*;
 import CH.ifa.draw.util.Geom;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * A ShortestDistance locates connection points by
@@ -54,8 +56,8 @@ public class ShortestDistanceConnector extends AbstractConnector {
 		Figure startFigure = connection.getStartConnector().owner();
 		Figure endFigure = connection.getEndConnector().owner();
 
-		Rectangle r1 = startFigure.displayBox();
-		Rectangle r2 = endFigure.displayBox();
+		ImmutableRectangle r1 = startFigure.displayBox();
+		ImmutableRectangle r2 = endFigure.displayBox();
 
 		Insets i1 = startFigure.connectionInsets();
 		Insets i2 = endFigure.connectionInsets();

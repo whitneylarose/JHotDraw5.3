@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -17,6 +17,8 @@ import java.io.IOException;
 import CH.ifa.draw.framework.*;
 import CH.ifa.draw.standard.*;
 import CH.ifa.draw.util.*;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * A poly line figure consists of a list of points.
@@ -57,9 +59,9 @@ public  class PolyLineFigure extends AbstractFigure {
 		fPoints.addElement(new Point(x, y));
 	}
 
-	public Rectangle displayBox() {
+	public ImmutableRectangle displayBox() {
 		Enumeration k = points();
-		Rectangle r = new Rectangle((Point) k.nextElement());
+		ImmutableRectangle r = new ImmutableRectangle((Point) k.nextElement());
 
 		while (k.hasMoreElements()) {
 			r.add((Point) k.nextElement());
@@ -213,7 +215,7 @@ public  class PolyLineFigure extends AbstractFigure {
 	}
 	
 	public boolean containsPoint(int x, int y) {
-		Rectangle bounds = displayBox();
+		ImmutableRectangle bounds = displayBox();
 		bounds.grow(4,4);
 		if (!bounds.contains(x, y)) {
 			return false;

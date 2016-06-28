@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -342,7 +342,7 @@ public class DragNDropTool extends AbstractTool implements DropTargetListener,
 /*                Figure figgy = (Figure) itr.next();
 				if( figgy.containsPoint( p.x, p.y ) ) {*/
 				if( ((Figure) itr.next()).containsPoint( p.x, p.y ) ) {
-/*                    Rectangle r = figgy.displayBox();
+/*                    ImmutableRectangle r = figgy.displayBox();
 					sx = r.width;
 					sy = r.height;*/
 					found = true;
@@ -365,7 +365,7 @@ public class DragNDropTool extends AbstractTool implements DropTargetListener,
 				while ( itr2.hasNext() ) {
 					Figure fig = (Figure) itr2.next();
 					fig = (Figure)fig.clone();
-					Rectangle rold = fig.displayBox();
+					ImmutableRectangle rold = fig.displayBox();
 					fig.moveBy(-rold.x,-rold.y);
 					fig.draw(g);
 				}

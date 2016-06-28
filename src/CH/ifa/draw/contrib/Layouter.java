@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -39,7 +39,7 @@ public interface Layouter extends Serializable, Storable {
 	 * @param origin start point for the layout
 	 * @param corner minimum corner point for the layout
 	 */	
-	public Rectangle calculateLayout(Point origin, Point corner);
+	public ImmutableRectangle calculateLayout(Point origin, Point corner);
 
 	/**
 	 * Method which lays out a figure. It is called by the figure
@@ -49,7 +49,7 @@ public interface Layouter extends Serializable, Storable {
 	 * @param origin start point for the layout
 	 * @param corner minimum corner point for the layout
 	 */	
-	public Rectangle layout(Point origin, Point corner);
+	public ImmutableRectangle layout(Point origin, Point corner);
 
 	/**
 	 * Set the insets for spacing between the figure and its subfigures

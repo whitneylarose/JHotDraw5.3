@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -19,6 +19,8 @@ import CH.ifa.draw.util.Undoable;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Vector;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * Tool to create new or edit existing text figures.
@@ -146,11 +148,11 @@ public class TextTool extends CreationTool {
 		}
 	}
 
-	private Rectangle fieldBounds(TextHolder figure) {
-		Rectangle box = figure.textDisplayBox();
+	private ImmutableRectangle fieldBounds(TextHolder figure) {
+		ImmutableRectangle box = figure.textDisplayBox();
 		int nChars = figure.overlayColumns();
 		Dimension d = fTextField.getPreferredSize(nChars);
-		return new Rectangle(box.x, box.y, d.width, d.height);
+		return new ImmutableRectangle(box.x, box.y, d.width, d.height);
 	}
 	
 	protected void setTypingTarget(TextHolder newTypingTarget) {

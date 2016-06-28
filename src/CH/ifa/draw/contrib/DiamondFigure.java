@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -20,12 +20,12 @@ import java.util.*;
 import java.io.IOException;
 
 /**
- * A diamond with vertices at the midpoints of its enclosing rectangle
+ * A diamond with vertices at the midpoints of its enclosing ImmutableRectangle
  *
  * @author Doug Lea  (dl at gee, Tue Feb 25 17:39:44 1997)
  * @version <$CURRENT_VERSION$>
  */
-public  class DiamondFigure extends RectangleFigure {
+public  class DiamondFigure extends ImmutableRectangleFigure {
 
 	public DiamondFigure() {
 		super(new Point(0,0), new Point(0,0));
@@ -39,7 +39,7 @@ public  class DiamondFigure extends RectangleFigure {
 	 * @return the polygon describing the diamond
 	 **/
 	protected Polygon getPolygon() {
-		Rectangle r = displayBox();
+		ImmutableRectangle r = displayBox();
 		Polygon p = new Polygon();
 		p.addPoint(r.x, r.y+r.height/2);
 		p.addPoint(r.x+r.width/2, r.y);
@@ -57,7 +57,7 @@ public  class DiamondFigure extends RectangleFigure {
 	}
 
 	public Insets connectionInsets() {
-		Rectangle r = displayBox();
+		ImmutableRectangle r = displayBox();
 		return new Insets(r.height/2, r.width/2, r.height/2, r.width/2);
 	}
 

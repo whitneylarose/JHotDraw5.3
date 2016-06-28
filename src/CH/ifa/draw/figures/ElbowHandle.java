@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -15,6 +15,8 @@ import java.awt.*;
 import CH.ifa.draw.framework.*;
 import CH.ifa.draw.standard.*;
 import CH.ifa.draw.util.Geom;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * A Handle to move an ElbowConnection left/right or up/down.
@@ -74,7 +76,7 @@ public class ElbowHandle extends AbstractHandle {
 	}
 
 	public void draw(Graphics g) {
-		Rectangle r = displayBox();
+		ImmutableRectangle r = displayBox();
 
 		g.setColor(Color.yellow);
 		g.fillOval(r.x, r.y, r.width, r.height);
@@ -87,8 +89,8 @@ public class ElbowHandle extends AbstractHandle {
 		LineConnection line = ownerConnection();
 		Figure startFigure = line.getStartConnector().owner();
 		Figure endFigure = line.getEndConnector().owner();
-		Rectangle start = startFigure.displayBox();
-		Rectangle end = endFigure.displayBox();
+		ImmutableRectangle start = startFigure.displayBox();
+		ImmutableRectangle end = endFigure.displayBox();
 		Insets i1 = startFigure.connectionInsets();
 		Insets i2 = endFigure.connectionInsets();
 
@@ -112,8 +114,8 @@ public class ElbowHandle extends AbstractHandle {
 		LineConnection line = ownerConnection();
 		Figure startFigure = line.getStartConnector().owner();
 		Figure endFigure = line.getEndConnector().owner();
-		Rectangle start = startFigure.displayBox();
-		Rectangle end = endFigure.displayBox();
+		ImmutableRectangle start = startFigure.displayBox();
+		ImmutableRectangle end = endFigure.displayBox();
 		Insets i1 = startFigure.connectionInsets();
 		Insets i2 = endFigure.connectionInsets();
 

@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -15,6 +15,8 @@ import java.awt.*;
 import java.io.IOException;
 import CH.ifa.draw.framework.*;
 import CH.ifa.draw.util.*;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * A LocatorConnector locates connection points with
@@ -65,9 +67,9 @@ public class LocatorConnector extends AbstractConnector {
 	/**
 	 * Gets the display box of the connector.
 	 */
-	public Rectangle displayBox() {
+	public ImmutableRectangle displayBox() {
 		Point p = fLocator.locate(owner());
-		return new Rectangle(
+		return new ImmutableRectangle(
 				p.x - SIZE / 2,
 				p.y - SIZE / 2,
 				SIZE,
@@ -78,7 +80,7 @@ public class LocatorConnector extends AbstractConnector {
 	 * Draws this connector.
 	 */
 	public void draw(Graphics g) {
-		Rectangle r = displayBox();
+		ImmutableRectangle r = displayBox();
 
 		g.setColor(Color.blue);
 		g.fillOval(r.x, r.y, r.width, r.height);

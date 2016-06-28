@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -17,6 +17,8 @@ import java.util.Vector;
 import CH.ifa.draw.util.*;
 import CH.ifa.draw.framework.*;
 import CH.ifa.draw.standard.*;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * An ellipse figure.
@@ -25,7 +27,7 @@ import CH.ifa.draw.standard.*;
  */
 public class EllipseFigure extends AttributeFigure {
 
-	private Rectangle   fDisplayBox;
+	private ImmutableRectangle   fDisplayBox;
 
 	/*
 	 * Serialization support.
@@ -48,12 +50,12 @@ public class EllipseFigure extends AttributeFigure {
 	}
 
 	public void basicDisplayBox(Point origin, Point corner) {
-		fDisplayBox = new Rectangle(origin);
-		fDisplayBox.add(corner);
+		//fDisplayBox = new ImmutableRectangle(origin);
+		fDisplayBox.add(origin, corner);
 	}
 
-	public Rectangle displayBox() {
-		return new Rectangle(
+	public ImmutableRectangle displayBox() {
+		return new ImmutableRectangle(
 			fDisplayBox.x,
 			fDisplayBox.y,
 			fDisplayBox.width,
@@ -61,21 +63,21 @@ public class EllipseFigure extends AttributeFigure {
 	}
 
 	protected void basicMoveBy(int x, int y) {
-		fDisplayBox.translate(x,y);
+		fDisplayBox.translate(fDisplayBox,x,y);
 	}
 
 	public void drawBackground(Graphics g) {
-		Rectangle r = displayBox();
+		ImmutableRectangle r = displayBox();
 		g.fillOval(r.x, r.y, r.width, r.height);
 	}
 
 	public void drawFrame(Graphics g) {
-		Rectangle r = displayBox();
+		ImmutableRectangle r = displayBox();
 		g.drawOval(r.x, r.y, r.width-1, r.height-1);
 	}
 
 	public Insets connectionInsets() {
-		Rectangle r = fDisplayBox;
+		ImmutableRectangle r = fDisplayBox;
 		int cx = r.width/2;
 		int cy = r.height/2;
 		return new Insets(cy, cx, cy, cx);
@@ -95,7 +97,7 @@ public class EllipseFigure extends AttributeFigure {
 
 	public void read(StorableInput dr) throws IOException {
 		super.read(dr);
-		fDisplayBox = new Rectangle(
+		fDisplayBox = new ImmutableRectangle(
 			dr.readInt(),
 			dr.readInt(),
 			dr.readInt(),

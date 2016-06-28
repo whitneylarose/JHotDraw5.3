@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -91,7 +91,7 @@ public class StandardLayouter implements Layouter {
 	 * @param origin start point for the layout
 	 * @param corner minimum corner point for the layout
 	 */	
-	public Rectangle calculateLayout(Point origin, Point corner) {
+	public ImmutableRectangle calculateLayout(Point origin, Point corner) {
 		int maxWidth = Math.abs(corner.x - origin.x);
 		int maxHeight = 0;
 		
@@ -99,23 +99,23 @@ public class StandardLayouter implements Layouter {
 		FigureEnumeration enumerator = getLayoutable().figures();
 		while (enumerator.hasMoreElements()) {
 			Figure currentFigure = enumerator.nextFigure();
-			Rectangle r = null;
+			ImmutableRectangle r = null;
 			if (currentFigure instanceof Layoutable) {
 				Layouter layoutStrategy = ((Layoutable)currentFigure).getLayouter();
 				r = layoutStrategy.calculateLayout(
 					new Point(0, 0), new Point(0, 0));
-				// add insets to calculated rectangle
+				// add insets to calculated ImmutableRectangle
 				r.grow(layoutStrategy.getInsets().left + layoutStrategy.getInsets().right,
 						layoutStrategy.getInsets().top + layoutStrategy.getInsets().bottom);
 			}
 			else {
-				r = new Rectangle(currentFigure.displayBox().getBounds());
+				r = new ImmutableRectangle(currentFigure.displayBox().getBounds());
 			}
 			maxWidth = Math.max(maxWidth, r.width);
 			maxHeight += r.height;
 		}
 
-		return new Rectangle(origin.x, origin.y, maxWidth, maxHeight);
+		return new ImmutableRectangle(origin.x, origin.y, maxWidth, maxHeight);
 	}
 
 	/**
@@ -128,9 +128,9 @@ public class StandardLayouter implements Layouter {
 	 * @param origin start point for the layout
 	 * @param corner minimum corner point for the layout
 	 */	
-	public Rectangle layout(Point origin, Point corner) {
+	public ImmutableRectangle layout(Point origin, Point corner) {
 		// calculate the layout of the figure and its sub-figures first
-		Rectangle r = calculateLayout(origin, corner);
+		ImmutableRectangle r = calculateLayout(origin, corner);
 
 		int maxHeight = getInsets().top;
 		FigureEnumeration enumerator = getLayoutable().figures();
@@ -145,7 +145,7 @@ public class StandardLayouter implements Layouter {
 		}
 		
 		// the maximum width has been already calculated
-		return new Rectangle(r.x, r.y, r.x + r.width, r.y + maxHeight + getInsets().bottom);
+		return new ImmutableRectangle(r.x, r.y, r.x + r.width, r.y + maxHeight + getInsets().bottom);
 	}
 
 	/**

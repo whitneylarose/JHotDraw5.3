@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -15,6 +15,7 @@ import CH.ifa.draw.util.*;
 import java.awt.*;
 import java.util.*;
 import java.io.Serializable;
+import CH.ifa.draw.contrib.ImmutableRectangle;
 
 /**
  * Drawing is a container for figures.
@@ -55,7 +56,7 @@ public interface Drawing
 	 * Z-order back to front over the figures
 	 * that lie within the absolute bounds.
 	 */
-	public FigureEnumeration figures(Rectangle viewRectangle);
+	public FigureEnumeration figures(ImmutableRectangle viewImmutableRectangle);
 
 	/**
 	 * Returns an enumeration to iterate in
@@ -70,9 +71,9 @@ public interface Drawing
 	public Figure findFigure(int x, int y);
 
 	/**
-	 * Finds a top level Figure that intersects the given rectangle.
+	 * Finds a top level Figure that intersects the given ImmutableRectangle.
 	 */
-	public Figure findFigure(Rectangle r);
+	public Figure findFigure(ImmutableRectangle r);
 
 	/**
 	 * Finds a top level Figure, but supresses the passed
@@ -86,12 +87,12 @@ public interface Drawing
 	public Figure findFigureWithout(int x, int y, Figure without);
 
 	/**
-	 * Finds a top level Figure that intersects the given rectangle.
+	 * Finds a top level Figure that intersects the given ImmutableRectangle.
 	 * It supresses the passed
 	 * in figure. Use this method to ignore a figure
 	 * that is temporarily inserted into the drawing.
 	 */
-	public Figure findFigure(Rectangle r, Figure without);
+	public Figure findFigure(ImmutableRectangle r, Figure without);
 
 	/**
 	 * Finds a figure but descends into a figure's
@@ -283,7 +284,7 @@ public interface Drawing
 	public void draw(Graphics g, FigureEnumeration fe);
 
 	/**
-	 * Invalidates a rectangle and merges it with the
+	 * Invalidates a ImmutableRectangle and merges it with the
 	 * existing damaged area.
 	 */
 	public void figureInvalidated(FigureChangeEvent e);
@@ -312,12 +313,12 @@ public interface Drawing
 
 	/**
 	 * Used to optimize rendering.  Rendering of many objects may
-	 * be slow until this method is called.  The view rectangle
+	 * be slow until this method is called.  The view ImmutableRectangle
 	 * should at least approximately enclose the CompositeFigure.
-	 * If the view rectangle is too small or too large, performance
+	 * If the view ImmutableRectangle is too small or too large, performance
 	 * may suffer.
 	 */
-	public void init(Rectangle viewRectangle);
+	public void init(ImmutableRectangle viewImmutableRectangle);
 
 	public String getTitle();
 	public void setTitle(String name);

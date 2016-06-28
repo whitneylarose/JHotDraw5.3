@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -100,7 +100,7 @@ class TriangleRotationHandle extends AbstractHandle {
 	}
 
 	public void draw(Graphics g) {
-		Rectangle r = displayBox();
+		ImmutableRectangle r = displayBox();
 
 		g.setColor(Color.yellow);
 		g.fillOval(r.x, r.y, r.width, r.height);

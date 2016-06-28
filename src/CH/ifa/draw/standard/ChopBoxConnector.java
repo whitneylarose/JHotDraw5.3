@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -14,6 +14,8 @@ package CH.ifa.draw.standard;
 import java.awt.*;
 import CH.ifa.draw.framework.*;
 import CH.ifa.draw.util.Geom;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * A ChopBoxConnector locates connection points by
@@ -40,7 +42,7 @@ public class ChopBoxConnector extends AbstractConnector {
 
 	public Point findStart(ConnectionFigure connection) {
 		Figure startFigure = connection.getStartConnector().owner();
-		Rectangle r2 = connection.getEndConnector().displayBox();
+		ImmutableRectangle r2 = connection.getEndConnector().displayBox();
 		Point r2c = null;
 
 		if (connection.pointCount() == 2) {
@@ -55,7 +57,7 @@ public class ChopBoxConnector extends AbstractConnector {
 
 	public Point findEnd(ConnectionFigure connection) {
 		Figure endFigure = connection.getEndConnector().owner();
-		Rectangle r1 = connection.getStartConnector().displayBox();
+		ImmutableRectangle r1 = connection.getStartConnector().displayBox();
 		Point r1c = null;
 
 		if (connection.pointCount() == 2) {
@@ -69,7 +71,7 @@ public class ChopBoxConnector extends AbstractConnector {
 	}
 
 	protected Point chop(Figure target, Point from) {
-		Rectangle r = target.displayBox();
+		ImmutableRectangle r = target.displayBox();
 		return Geom.angleToPoint(r, (Geom.pointToAngle(r, from)));
 	}
 }

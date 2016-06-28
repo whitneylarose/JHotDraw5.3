@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -20,13 +20,13 @@ import java.util.*;
 import java.io.IOException;
 
 /**
- * A triangle with same dimensions as its enclosing rectangle,
+ * A triangle with same dimensions as its enclosing ImmutableRectangle,
  * and apex at any of 8 places
  *
  * @author Doug Lea  (dl at gee, Tue Feb 25 17:30:58 1997)
  * @version <$CURRENT_VERSION$>
  */
-public  class TriangleFigure extends RectangleFigure {
+public  class TriangleFigure extends ImmutableRectangleFigure {
 
 	static double[] rotations = {
 		-Math.PI/2, -Math.PI/4, 
@@ -68,7 +68,7 @@ public  class TriangleFigure extends RectangleFigure {
 
 	/** Return the polygon describing the triangle **/
 	public Polygon getPolygon() {
-		Rectangle r = displayBox();
+		ImmutableRectangle r = displayBox();
 		Polygon p = new Polygon();
 		switch (fRotation) {
 		case 0:
@@ -125,7 +125,7 @@ public  class TriangleFigure extends RectangleFigure {
 	}
 
 	public Insets connectionInsets() {
-		Rectangle r = displayBox();
+		ImmutableRectangle r = displayBox();
 		switch(fRotation) {
 		case 0:
 			return new Insets(r.height, r.width/2, 0, r.width/2);

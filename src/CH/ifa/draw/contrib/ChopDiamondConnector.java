@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -45,7 +45,7 @@ public class ChopDiamondConnector extends ChopBoxConnector {
 	 * Return an appropriate connection point on the edge of a diamond figure
 	 */
 	protected Point chop(Figure target, Point from) {
-		Rectangle r = target.displayBox();
+		ImmutableRectangle r = target.displayBox();
 		// Center point
 		Point c1 = new Point(r.x + r.width/2, r.y + (r.height/2));
 		Point p2 = new Point(r.x + r.width/2, r.y + r.height);

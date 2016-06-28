@@ -1,20 +1,21 @@
 /*
  * @(#)CustomToolBar.java
  *
- * Project:		JHotdraw - a GUI framework for technical drawings
- *				http://www.jhotdraw.org
- *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
- * License:		Lesser GNU Public License (LGPL)
- *				http://www.opensource.org/licenses/lgpl-license.html
+ * Project:       JHotdraw - a GUI framework for technical drawings
+ *          http://www.jhotdraw.org
+ *          http://jhotdraw.sourceforge.net
+ * Copyright:  ï¿½ by the original author(s) and all contributors
+ * License:       Lesser GNU Public License (LGPL)
+ *          http://www.opensource.org/licenses/lgpl-license.html
  */
 
 package CH.ifa.draw.contrib;
 
 import CH.ifa.draw.framework.*;
-import CH.ifa.draw.standard.*;
-import CH.ifa.draw.figures.*;
+//import CH.ifa.draw.standard.*;
+//import CH.ifa.draw.figures.*;
 import CH.ifa.draw.util.*;
+
 import javax.swing.JToolBar;
 import javax.swing.JComponent;
 import java.awt.*;
@@ -30,28 +31,29 @@ import java.util.*;
  * @author  Wolfram Kaiser
  * @version <$CURRENT_VERSION$>
  */
+
 public class CustomToolBar extends JToolBar {
 
 	/**
 	 * Vector containing all tools for the standard ToolBar
 	 */
 	private Vector standardTools;
-	
+
 	/**
 	 * Vector containing all tools for the edit ToolBar
 	 */
 	private Vector editTools;
-	
+
 	/**
 	 * Vector containing all tools, which are currently activated
 	 */
 	private Vector currentTools;
-	
+
 	/**
 	 * Flag which determines whether the tool palette must be updated
 	 */
 	private boolean needsUpdate;
-	
+
 	/**
 	 * Create a new ToolBar
 	 */
@@ -74,7 +76,7 @@ public class CustomToolBar extends JToolBar {
 			switchToStandardTools();
 		}
 	}
-	
+
 	/**
 	 * Select the palette with the edit tools
 	 */
@@ -129,4 +131,6 @@ public class CustomToolBar extends JToolBar {
 		needsUpdate = true;
 		return super.add(newTool);
 	}
+
 }
+

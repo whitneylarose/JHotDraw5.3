@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -15,6 +15,8 @@ import java.awt.*;
 import java.util.*;
 import CH.ifa.draw.framework.*;
 import CH.ifa.draw.standard.*;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * A Figure that groups a collection of figures.
@@ -40,9 +42,9 @@ public  class GroupFigure extends CompositeFigure {
 	* Gets the display box. The display box is defined as the union
 	* of the contained figures.
 	*/
-	public Rectangle displayBox() {
+	public ImmutableRectangle displayBox() {
 		FigureEnumeration fe = figures();
-		Rectangle r = fe.nextFigure().displayBox();
+		ImmutableRectangle r = fe.nextFigure().displayBox();
 
 		while (fe.hasMoreElements()) {
 			r.add(fe.nextFigure().displayBox());

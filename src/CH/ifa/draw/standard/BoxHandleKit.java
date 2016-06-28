@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -16,6 +16,8 @@ import CH.ifa.draw.util.Undoable;
 import CH.ifa.draw.util.UndoableAdapter;
 import java.awt.*;
 import java.util.Vector;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * A set of utility methods to create Handles for the common
@@ -98,7 +100,7 @@ class ResizeHandle extends LocatorHandle {
 	}
 	
 	public void invokeEnd(int x, int y, int anchorX, int anchorY, DrawingView view) {
-		Rectangle oldDisplayBox = ((ResizeHandle.UndoActivity)getUndoActivity()).getOldDisplayBox();
+		ImmutableRectangle oldDisplayBox = ((ResizeHandle.UndoActivity)getUndoActivity()).getOldDisplayBox();
 		if (owner().displayBox().equals(oldDisplayBox)) {
 			// display box hasn't change so there is nothing to undo
 			setUndoActivity(null);
@@ -113,7 +115,7 @@ class ResizeHandle extends LocatorHandle {
 	}
 
 	public static class UndoActivity extends UndoableAdapter {
-		private Rectangle myOldDisplayBox;
+		private ImmutableRectangle myOldDisplayBox;
 		
 		public UndoActivity(DrawingView newView) {
 			super(newView);
@@ -145,17 +147,17 @@ class ResizeHandle extends LocatorHandle {
 			}
 			Figure currentFigure = fe.nextFigure();
 			
-			Rectangle figureDisplayBox = currentFigure.displayBox();
+			ImmutableRectangle figureDisplayBox = currentFigure.displayBox();
 			currentFigure.displayBox(getOldDisplayBox());
 			setOldDisplayBox(figureDisplayBox);
 			return true;
 		}
 		
-		protected void setOldDisplayBox(Rectangle newOldDisplayBox) {
+		protected void setOldDisplayBox(ImmutableRectangle newOldDisplayBox) {
 			myOldDisplayBox = newOldDisplayBox;
 		}
 
-		public Rectangle getOldDisplayBox() {
+		public ImmutableRectangle getOldDisplayBox() {
 			return myOldDisplayBox;
 		}
 	}
@@ -167,7 +169,7 @@ class NorthEastHandle extends ResizeHandle {
 	}
 
 	public void invokeStep (int x, int y, int anchorX, int anchorY, DrawingView view) {
-		Rectangle r = owner().displayBox();
+		ImmutableRectangle r = owner().displayBox();
 		owner().displayBox(
 			new Point(r.x, Math.min(r.y + r.height, y)),
 			new Point(Math.max(r.x, x), r.y + r.height)
@@ -181,7 +183,7 @@ class EastHandle extends ResizeHandle {
 	}
 
 	public void invokeStep (int x, int y, int anchorX, int anchorY, DrawingView view) {
-		Rectangle r = owner().displayBox();
+		ImmutableRectangle r = owner().displayBox();
 		owner().displayBox(
 			new Point(r.x, r.y), new Point(Math.max(r.x, x), r.y + r.height)
 		);
@@ -194,7 +196,7 @@ class NorthHandle extends ResizeHandle {
 	}
 
 	public void invokeStep (int x, int y, int anchorX, int anchorY, DrawingView view) {
-		Rectangle r = owner().displayBox();
+		ImmutableRectangle r = owner().displayBox();
 		owner().displayBox(
 			new Point(r.x, Math.min(r.y + r.height, y)),
 			new Point(r.x + r.width, r.y + r.height)
@@ -208,7 +210,7 @@ class NorthWestHandle extends ResizeHandle {
 	}
 
 	public void invokeStep (int x, int y, int anchorX, int anchorY, DrawingView view) {
-		Rectangle r = owner().displayBox();
+		ImmutableRectangle r = owner().displayBox();
 		owner().displayBox(
 			new Point(Math.min(r.x + r.width, x), Math.min(r.y + r.height, y)),
 			new Point(r.x + r.width, r.y + r.height)
@@ -222,7 +224,7 @@ class SouthEastHandle extends ResizeHandle {
 	}
 
 	public void invokeStep (int x, int y, int anchorX, int anchorY, DrawingView view) {
-		Rectangle r = owner().displayBox();
+		ImmutableRectangle r = owner().displayBox();
 		owner().displayBox(
 			new Point(r.x, r.y),
 			new Point(Math.max(r.x, x), Math.max(r.y, y))
@@ -236,7 +238,7 @@ class SouthHandle extends ResizeHandle {
 	}
 
 	public void invokeStep (int x, int y, int anchorX, int anchorY, DrawingView view) {
-		Rectangle r = owner().displayBox();
+		ImmutableRectangle r = owner().displayBox();
 		owner().displayBox(
 			new Point(r.x, r.y),
 			new Point(r.x + r.width, Math.max(r.y, y))
@@ -250,7 +252,7 @@ class SouthWestHandle extends ResizeHandle {
 	}
 
 	public void invokeStep (int x, int y, int anchorX, int anchorY, DrawingView view) {
-		Rectangle r = owner().displayBox();
+		ImmutableRectangle r = owner().displayBox();
 		owner().displayBox(
 			new Point(Math.min(r.x + r.width, x), r.y),
 			new Point(r.x + r.width, Math.max(r.y, y))
@@ -264,7 +266,7 @@ class WestHandle extends ResizeHandle {
 	}
 
 	public void invokeStep (int x, int y, int anchorX, int anchorY, DrawingView view) {
-		Rectangle r = owner().displayBox();
+		ImmutableRectangle r = owner().displayBox();
 		owner().displayBox(
 			new Point(Math.min(r.x + r.width, x), r.y),
 			new Point(r.x + r.width, r.y + r.height)

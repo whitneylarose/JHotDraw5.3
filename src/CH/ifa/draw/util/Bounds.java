@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -16,11 +16,13 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
+
+
 /** 
- * This class is a rectangle with floating point
+ * This class is a ImmutableRectangle with floating point
  * dimensions and location.  This class provides
  * many convenient geometrical methods related to
- * rectangles.  Basically, this class is like
+ * ImmutableRectangles.  Basically, this class is like
  * java.awt.geom.Rectangle2D with some extra
  * functionality.
  *
@@ -130,7 +132,7 @@ public class Bounds implements Serializable {
 		return _dY2 - _dY1;
 	}
 
-	public Rectangle2D asRectangle2D() {
+	public Rectangle2D Rectangle2D() {
 		return new Rectangle2D.Double(getLesserX(), getLesserY(),
 		getWidth(), getHeight());
 	}

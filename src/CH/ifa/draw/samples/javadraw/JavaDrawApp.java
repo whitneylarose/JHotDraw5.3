@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -67,11 +67,11 @@ public  class JavaDrawApp extends MDI_DrawApplication {
 		tool = new URLTool(this);
 		palette.add(createToolButton(IMAGES + "URL", "URL Tool", tool));
 
-		tool = new UndoableTool(new CreationTool(this, new RectangleFigure()));
-		palette.add(createToolButton(IMAGES + "RECT", "Rectangle Tool", tool));
+		tool = new UndoableTool(new CreationTool(this, new ImmutableRectangleFigure()));
+		palette.add(createToolButton(IMAGES + "RECT", "ImmutableRectangle Tool", tool));
 
-		tool = new UndoableTool(new CreationTool(this, new RoundRectangleFigure()));
-		palette.add(createToolButton(IMAGES + "RRECT", "Round Rectangle Tool", tool));
+		tool = new UndoableTool(new CreationTool(this, new RoundImmutableRectangleFigure()));
+		palette.add(createToolButton(IMAGES + "RRECT", "Round ImmutableRectangle Tool", tool));
 
 		tool = new UndoableTool(new CreationTool(this, new EllipseFigure()));
 		palette.add(createToolButton(IMAGES + "ELLIPSE", "Ellipse Tool", tool));

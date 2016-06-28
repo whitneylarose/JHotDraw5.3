@@ -4,12 +4,14 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
 
 package CH.ifa.draw.util;
+
+//import edu.cmu.cs.glacier.qual.Immutable;
 
 import java.awt.*;
 
@@ -20,18 +22,18 @@ import java.awt.*;
  *
  * @version <$CURRENT_VERSION$>
  */
-public  class PaletteIcon extends Object {
+ public  class PaletteIcon extends Object {
 
-	Image       fNormal;
-	Image       fPressed;
-	Image       fSelected;
-	Dimension   fSize;
+	private final Image       fNormal;
+	private final Image       fPressed;
+	private final Image       fSelected;
+	private final Dimension   fSize;
 
-	public PaletteIcon(Dimension size, Image normal, Image pressed, Image selected) {
-		fSize = size;
-		fNormal = normal;
-		fPressed = pressed;
-		fSelected = selected;
+	public PaletteIcon(Dimension fsize, Image fnormal, Image fpressed, Image fselected) {
+		this. fSize = fsize;
+		this. fNormal = fnormal;
+		this. fPressed = fpressed;
+		this. fSelected = fselected;
 	}
 
 	public Image normal() { return fNormal; }

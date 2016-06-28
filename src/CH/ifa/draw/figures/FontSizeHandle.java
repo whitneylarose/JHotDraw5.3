@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -16,6 +16,7 @@ import CH.ifa.draw.standard.*;
 import CH.ifa.draw.util.Undoable;
 import CH.ifa.draw.util.UndoableAdapter;
 import java.awt.*;
+import CH.ifa.draw.contrib.ImmutableRectangle;
 
 /**
  * A Handle to change the font size by direct manipulation.
@@ -54,7 +55,7 @@ public class FontSizeHandle extends LocatorHandle {
 	}
 
 	public void draw(Graphics g) {
-		Rectangle r = displayBox();
+		ImmutableRectangle r = displayBox();
 
 		g.setColor(Color.yellow);
 		g.fillOval(r.x, r.y, r.width, r.height);

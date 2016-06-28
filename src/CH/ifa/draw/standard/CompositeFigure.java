@@ -4,7 +4,7 @@
  * Project:		JHotdraw - a GUI framework for technical drawings
  *				http://www.jhotdraw.org
  *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
+ * Copyright:	ï¿½ by the original author(s) and all contributors
  * License:		Lesser GNU Public License (LGPL)
  *				http://www.opensource.org/licenses/lgpl-license.html
  */
@@ -16,6 +16,8 @@ import CH.ifa.draw.framework.*;
 import java.awt.*;
 import java.util.*;
 import java.io.*;
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 
 /**
  * A Figure that is composed of several figures. A CompositeFigure
@@ -374,7 +376,7 @@ public abstract class CompositeFigure
 	 * Z-order back to front over the figures
 	 * that lie within the given bounds.
 	 */
-	public FigureEnumeration figures(Rectangle viewRectangle) {
+	public FigureEnumeration figures(ImmutableRectangle viewRectangle) {
 		if (_theQuadTree != null) {
 
 			Vector v =
@@ -388,7 +390,7 @@ public abstract class CompositeFigure
 				v2.addElement(new OrderedFigureElement(f, f.getZValue()));
 			}
 
-			Collections.sort(v2);
+			//Collections.sort(v2);
 
 			Vector v3 = new Vector();
 
@@ -435,13 +437,13 @@ public abstract class CompositeFigure
 	}
 
 	/**
-	 * Finds a top level Figure that intersects the given rectangle.
+	 * Finds a top level Figure that intersects the given ImmutableRectangle.
 	 */
-	public Figure findFigure(Rectangle r) {
+	public Figure findFigure(ImmutableRectangle r) {
 		FigureEnumeration k = figuresReverse();
 		while (k.hasMoreElements()) {
 			Figure figure = k.nextFigure();
-			Rectangle fr = figure.displayBox();
+			ImmutableRectangle fr = figure.displayBox();
 			if (r.intersects(fr)) {
 				return figure;
 			}
@@ -472,18 +474,18 @@ public abstract class CompositeFigure
 	}
 
 	/**
-	 * Finds a top level Figure that intersects the given rectangle.
+	 * Finds a top level Figure that intersects the given ImmutableRectangle.
 	 * It supresses the passed
 	 * in figure. Use this method to ignore a figure
 	 * that is temporarily inserted into the drawing.
 	 */
-	public Figure findFigure(Rectangle r, Figure without) {
+	public Figure findFigure(ImmutableRectangle r, Figure without) {
 		if (without == null)
 			return findFigure(r);
 		FigureEnumeration k = figuresReverse();
 		while (k.hasMoreElements()) {
 			Figure figure = k.nextFigure();
-			Rectangle fr = figure.displayBox();
+			ImmutableRectangle fr = figure.displayBox();
 			if (r.intersects(fr) && !figure.includes(without)) {
 				return figure;
 			}
@@ -649,16 +651,16 @@ public abstract class CompositeFigure
 
 	/**
 	 * Used to optimize rendering.  Rendering of many objects may
-	 * be slow until this method is called.  The view rectangle
+	 * be slow until this method is called.  The view ImmutableRectangle
 	 * should at least approximately enclose the CompositeFigure.
-	 * If the view rectangle is too small or too large, performance
+	 * If the view ImmutableRectangle is too small or too large, performance
 	 * may suffer.
 	 *
 	 * Don't forget to call this after loading or creating a
 	 * new CompositeFigure.  If you forget, drawing performance may
 	 * suffer.
 	 */
-	public void init(Rectangle viewRectangle) {
+	public void init(ImmutableRectangle viewRectangle) {
 		_theQuadTree = new QuadTree(new Bounds(viewRectangle).asRectangle2D());
 
 		FigureEnumeration fe = figures();

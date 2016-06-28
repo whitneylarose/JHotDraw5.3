@@ -1,24 +1,28 @@
 /*
  * @(#)ColorMap.java
  *
- * Project:		JHotdraw - a GUI framework for technical drawings
- *				http://www.jhotdraw.org
- *				http://jhotdraw.sourceforge.net
- * Copyright:	© by the original author(s) and all contributors
- * License:		Lesser GNU Public License (LGPL)
- *				http://www.opensource.org/licenses/lgpl-license.html
+ * Project:       JHotdraw - a GUI framework for technical drawings
+ *          http://www.jhotdraw.org
+ *          http://jhotdraw.sourceforge.net
+ * Copyright:  ï¿½ by the original author(s) and all contributors
+ * License:       Lesser GNU Public License (LGPL)
+ *          http://www.opensource.org/licenses/lgpl-license.html
  */
 
 package CH.ifa.draw.util;
 
+
+
+//import edu.cmu.cs.glacier.qual.Immutable;
+
 import java.awt.Color;
+//@Immutable
+ class ColorEntry {
+	public String  fName;
+	protected  final Color fColor;
 
-class ColorEntry {
-	public String 	fName;
-	public Color 	fColor;
-
-	ColorEntry(String name, Color color) {
-		fColor = color;
+	ColorEntry(String name, Color fColor) {
+		this. fColor = fColor;
 		fName = name;
 	}
 }
@@ -31,24 +35,24 @@ class ColorEntry {
  */
 public class ColorMap {
 
-	static ColorEntry fMap[] = {
-				new ColorEntry("Black",         Color.black),
-				new ColorEntry("Blue",          Color.blue),
-				new ColorEntry("Green",         Color.green),
-				new ColorEntry("Red",           Color.red),
-				new ColorEntry("Pink",          Color.pink),
-				new ColorEntry("Magenta",       Color.magenta),
-				new ColorEntry("Orange",        Color.orange),
-				new ColorEntry("Yellow",        Color.yellow),
-				new ColorEntry("New Tan",       new Color(0xEBC79E)),
-				new ColorEntry("Aquamarine",    new Color(0x70DB93)),
-				new ColorEntry("Sea Green",     new Color(0x238E68)),
-				new ColorEntry("Dark Gray",     Color.darkGray),
-				new ColorEntry("Light Gray",    Color.lightGray),
-				new ColorEntry("White",         Color.white),
-				// there is no support for alpha values so we use a special value
-				// to represent a transparent color
-				new ColorEntry("None",          new Color(0xFFC79E))
+	static final ColorEntry fMap [] = {
+			new ColorEntry("Black",         Color.black),
+			new ColorEntry("Blue",          Color.blue),
+			new ColorEntry("Green",         Color.green),
+			new ColorEntry("Red",           Color.red),
+			new ColorEntry("Pink",          Color.pink),
+			new ColorEntry("Magenta",       Color.magenta),
+			new ColorEntry("Orange",        Color.orange),
+			new ColorEntry("Yellow",        Color.yellow),
+			new ColorEntry("New Tan",       new Color(0xEBC79E)),
+			new ColorEntry("Aquamarine",    new Color(0x70DB93)),
+			new ColorEntry("Sea Green",     new Color(0x238E68)),
+			new ColorEntry("Dark Gray",     Color.darkGray),
+			new ColorEntry("Light Gray",    Color.lightGray),
+			new ColorEntry("White",         Color.white),
+			// there is no support for alpha values so we use a special value
+			// to represent a transparent color
+			new ColorEntry("None",          new Color(0xFFC79E))
 	};
 
 	public static int size() {
@@ -87,7 +91,7 @@ public class ColorMap {
 				return i;
 			}
 		}
-		
+
 		return 0;
 	}
 
@@ -95,3 +99,4 @@ public class ColorMap {
 		return color.equals(color("None"));
 	}
 }
+
