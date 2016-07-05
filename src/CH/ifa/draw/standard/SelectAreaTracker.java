@@ -51,8 +51,8 @@ public class SelectAreaTracker extends AbstractTool {
 	}
 
 	private void rubberBand(int x1, int y1, int x2, int y2) {
-		//fSelectGroup = new ImmutableRectangle(new Point(x1, y1));
-		fSelectGroup.add(new Point(x1,y1), new Point(x2, y2));
+		fSelectGroup = new ImmutableRectangle(new Point(x1, y1), new Point(x2,y2));
+		//fSelectGroup.add(new Point(x1,y1), new Point(x2, y2));
 		drawXORRect(fSelectGroup);
 	}
 
