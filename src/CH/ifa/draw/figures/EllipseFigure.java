@@ -50,8 +50,8 @@ public class EllipseFigure extends AttributeFigure {
 	}
 
 	public void basicDisplayBox(Point origin, Point corner) {
-		//fDisplayBox = new ImmutableRectangle(origin);
-		fDisplayBox.add(origin, corner);
+		fDisplayBox = new ImmutableRectangle(origin, corner);
+		//fDisplayBox.add(origin, corner);
 	}
 
 	public ImmutableRectangle displayBox() {
@@ -63,7 +63,7 @@ public class EllipseFigure extends AttributeFigure {
 	}
 
 	protected void basicMoveBy(int x, int y) {
-		fDisplayBox.translate(fDisplayBox,x,y);
+		fDisplayBox = fDisplayBox.translate(x,y);
 	}
 
 	public void drawBackground(Graphics g) {

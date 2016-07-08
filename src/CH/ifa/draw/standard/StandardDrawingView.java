@@ -189,6 +189,7 @@ counter++;
 		public void mouseDragged(MouseEvent e) {
 			Point p = constrainPoint(new Point(e.getX(), e.getY()));
 			tool().mouseDrag(e, p.x, p.y);
+			fSelectionHandles = null;
 			checkDamage();
 		}
 
@@ -693,6 +694,7 @@ counter++;
 		while (figures.hasMoreElements()) {
 			figures.nextFigure().moveBy(dx, dy);
 		}
+		fSelectionHandles = null;
 		checkDamage();
 	}
 
@@ -718,6 +720,7 @@ counter++;
 
 	public void drawingInvalidated(DrawingChangeEvent e) {
 		ImmutableRectangle r = e.getInvalidatedImmutableRectangle();
+		//ImmutableRectangle r = new ImmutableRectangle(0,0,1000,1000);
 		if (fDamage == null) {
 			fDamage = r;
 		}

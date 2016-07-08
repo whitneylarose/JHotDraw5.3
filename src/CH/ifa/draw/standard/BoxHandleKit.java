@@ -96,7 +96,8 @@ class ResizeHandle extends LocatorHandle {
 	public void invokeStart(int  x, int  y, DrawingView view) {
 		setUndoActivity(createUndoActivity(view));
 		getUndoActivity().setAffectedFigures(new SingleFigureEnumerator(owner()));
-		((ResizeHandle.UndoActivity)getUndoActivity()).setOldDisplayBox(owner().displayBox());
+	 	((ResizeHandle.UndoActivity)getUndoActivity()).setOldDisplayBox(owner().displayBox());
+
 	}
 	
 	public void invokeEnd(int x, int y, int anchorX, int anchorY, DrawingView view) {

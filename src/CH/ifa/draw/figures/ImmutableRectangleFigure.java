@@ -62,7 +62,9 @@ public class ImmutableRectangleFigure extends AttributeFigure {
 	public Vector handles() {
 		Vector handles = new Vector();
 		BoxHandleKit.addHandles(this, handles);
+		System.out.println(handles);
 		return handles;
+
 	}
 
 	public ImmutableRectangle displayBox() {
@@ -74,7 +76,7 @@ public class ImmutableRectangleFigure extends AttributeFigure {
 	}
 
 	protected void basicMoveBy(int x, int y) {
-		fDisplayBox.translate(fDisplayBox,x,y);
+		fDisplayBox = fDisplayBox.translate(x,y);
 	}
 
 	public void drawBackground(Graphics g) {

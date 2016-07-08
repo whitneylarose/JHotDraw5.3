@@ -53,9 +53,9 @@ public class RoundImmutableRectangleFigure extends AttributeFigure {
 
 	public void basicDisplayBox(Point origin, Point corner) {
 		//fDisplayBox = new ImmutableRectangle(origin);
-		fDisplayBox.add(origin, corner);
+		//fDisplayBox.add(origin, corner);
 		//create new corner
-		//fDisplayBox = new ImmutableRectangle(corner);
+		fDisplayBox = new ImmutableRectangle(origin, corner);
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class RoundImmutableRectangleFigure extends AttributeFigure {
 
 	protected void basicMoveBy(int x, int y) {
 
-		fDisplayBox.translate(fDisplayBox, x,y);
+		fDisplayBox = fDisplayBox.translate(x,y);
 		//create new ImmutableRectangle
 		//fDisplayBox = new ImmutableRectangle(x,y);
 	}

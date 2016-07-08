@@ -5,6 +5,7 @@ package CH.ifa.draw.contrib;
  */
 
 import edu.cmu.cs.glacier.qual.Immutable;
+import java.awt.*;
 
 //package CH.ifa.draw.figures;
         import java.awt.*;
@@ -111,6 +112,12 @@ public class ImmutableRectangle implements Serializable{
         this(p.x, p.y, d.width, d.height);
     }
 
+    public ImmutableRectangle (int x, int y, Point p)
+    {
+        this(p.x,p.y,0,0);
+
+    }
+
     /**
      * Constructs a new <code>ImmutableRectangle</code> whose upper-left corner is the
      * specified <code>Point</code>, and whose width and height are both zero.
@@ -141,6 +148,11 @@ public class ImmutableRectangle implements Serializable{
      * <code>double</code> precision.
      * @return the X coordinate of the bounding <code>ImmutableRectangle</code>.
      */
+
+    public ImmutableRectangle (Rectangle r){
+        this(r.x, r.y, r.width, r.height);
+    }
+
     public double getX() {
         return x;
     }
@@ -242,25 +254,88 @@ public class ImmutableRectangle implements Serializable{
      *           <code>ImmutableRectangle</code>
      */
 
-      public ImmutableRectangle add(Point pt, Point po) {
-          return new ImmutableRectangle(pt, po);
+
+    public ImmutableRectangle add (Point pt){
+        return new ImmutableRectangle(new Point(pt.x, pt.y));
+    }
+
+    public ImmutableRectangle add(Point pt, Point po) {
+          return new ImmutableRectangle(pt.x, pt.y, po.x, po.y);
     }
 
     public ImmutableRectangle add (ImmutableRectangle ir){
         return new ImmutableRectangle(ir);
     }
 
-      public ImmutableRectangle grow (int x, int y){
+    public ImmutableRectangle grow (int x, int y){
 
           return new ImmutableRectangle(x,y);
       }
 
-    public ImmutableRectangle translate (ImmutableRectangle r, int px, int py){
+    public ImmutableRectangle translate (int px, int py){
 
-        int newx = r.x + px;
-        int newy = r.y + py;
+//        px += r.x;
+//        py += r.y;
+//        return new ImmutableRectangle(px, py);
 
-        return new ImmutableRectangle(newx, newy);
+        int oldv = this.x;
+        int newx = oldv + px;
+        int h = height;
+        int w = width;
+        if (px < 0) {
+            // moving leftward
+            if (newx > oldv) {
+                // negative overflow
+                // Only adjust width if it was valid (>= 0).
+                if (width >= 0) {
+                    //width += newv - Integer.MIN_VALUE;
+                    w += newx - Integer.MIN_VALUE;
+                }
+                newx = Integer.MIN_VALUE;
+            }
+        } else {
+            // moving rightward (or staying still)
+            if (newx < oldv) {
+                // positive overflow
+                if (width >= 0) {
+
+                    //width += newv - Integer.MAX_VALUE;
+                    w += newx - Integer.MAX_VALUE;
+
+                    if (width < 0) w = Integer.MAX_VALUE;
+                }
+                newx = Integer.MAX_VALUE;
+            }
+        }
+        //this.x = newv;
+
+        oldv = this.y;
+        int newy = oldv + py;
+        if (py < 0) {
+            // moving upward
+            if (newy > oldv) {
+                // negative overflow
+                if (height >= 0) {
+                    //height += newy - Integer.MIN_VALUE;
+                    h += newy - Integer.MIN_VALUE;
+                    // See above comment about no overflow in this case
+                }
+                newy = Integer.MIN_VALUE;
+            }
+        } else {
+            // moving downward (or staying still)
+            if (newy < oldv) {
+                // positive overflow
+                if (height >= 0) {
+                    //height += newy - Integer.MAX_VALUE;
+                    h += newy - Integer.MAX_VALUE;
+                    if (height < 0) h = Integer.MAX_VALUE;
+                }
+                newy = Integer.MAX_VALUE;
+            }
+        }
+        return new ImmutableRectangle(newx, newy , w ,h);
+        //this.y = newv;
     }
 
 
@@ -428,42 +503,6 @@ public class ImmutableRectangle implements Serializable{
     }
 
     /**
-     * Computes the intersection of this <code>ImmutableRectangle</code> with the
-     * specified <code>ImmutableRectangle</code>. Returns a new <code>ImmutableRectangle</code>
-     * that represents the intersection of the two ImmutableRectangles.
-     * If the two ImmutableRectangles do not intersect, the result will be
-     * an empty ImmutableRectangle.
-     *
-     * @param     r   the specified <code>ImmutableRectangle</code>
-     * @return    the largest <code>ImmutableRectangle</code> contained in both the
-     *            specified <code>ImmutableRectangle</code> and in
-     *            this <code>ImmutableRectangle</code>; or if the ImmutableRectangles
-     *            do not intersect, an empty ImmutableRectangle.
-     */
-    public ImmutableRectangle intersection(ImmutableRectangle r) {
-        int tx1 = this.x;
-        int ty1 = this.y;
-        int rx1 = r.x;
-        int ry1 = r.y;
-        long tx2 = tx1; tx2 += this.width;
-        long ty2 = ty1; ty2 += this.height;
-        long rx2 = rx1; rx2 += r.width;
-        long ry2 = ry1; ry2 += r.height;
-        if (tx1 < rx1) tx1 = rx1;
-        if (ty1 < ry1) ty1 = ry1;
-        if (tx2 > rx2) tx2 = rx2;
-        if (ty2 > ry2) ty2 = ry2;
-        tx2 -= tx1;
-        ty2 -= ty1;
-        // tx2,ty2 will never overflow (they will never be
-        // larger than the smallest of the two source w,h)
-        // they might underflow, though...
-        if (tx2 < Integer.MIN_VALUE) tx2 = Integer.MIN_VALUE;
-        if (ty2 < Integer.MIN_VALUE) ty2 = Integer.MIN_VALUE;
-        return new ImmutableRectangle(tx1, ty1, (int) tx2, (int) ty2);
-    }
-
-    /**
      * Computes the union of this <code>ImmutableRectangle</code> with the
      * specified <code>ImmutableRectangle</code>. Returns a new
      * <code>ImmutableRectangle</code> that
@@ -479,9 +518,8 @@ public class ImmutableRectangle implements Serializable{
      * <p>
      * If the resulting {@code ImmutableRectangle} would have a dimension
      * too large to be expressed as an {@code int}, the result
-     * will have a dimension of {@code Integer.MAX_VALUE} along
-     * that dimension.
-     * @param r the specified <code>ImmutableRectangle</code>
+     * will have a dimension of {@code Integer. MAX_VALUE} along
+     * that dimen sion.
      * @return    the smallest <code>ImmutableRectangle</code> containing both
      *            the specified <code>ImmutableRectangle</code> and this
      *            <code>ImmutableRectangle</code>.

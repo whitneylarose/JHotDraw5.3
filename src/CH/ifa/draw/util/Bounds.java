@@ -11,6 +11,8 @@
 
 package CH.ifa.draw.util;
 
+import CH.ifa.draw.contrib.ImmutableRectangle;
+
 import java.awt.Dimension;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -90,6 +92,10 @@ public class Bounds implements Serializable {
 		// empty constructor
 	}
 
+	public Bounds (ImmutableRectangle r){
+		this(r.x, r.y, r.width, r.height);
+	}
+
 	//____________________________________________________PUBLIC METHODS
 
 	public double getLesserX() {
@@ -132,7 +138,7 @@ public class Bounds implements Serializable {
 		return _dY2 - _dY1;
 	}
 
-	public Rectangle2D Rectangle2D() {
+	public Rectangle2D asRectangle2D() {
 		return new Rectangle2D.Double(getLesserX(), getLesserY(),
 		getWidth(), getHeight());
 	}

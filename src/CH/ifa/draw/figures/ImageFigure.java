@@ -78,7 +78,7 @@ public  class ImageFigure
 	}
 
 	protected void basicMoveBy(int x, int y) {
-		fDisplayBox.translate(fDisplayBox, x,y);
+		fDisplayBox = fDisplayBox.translate( x,y);
 	}
 
 	public void draw(Graphics g) {

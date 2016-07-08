@@ -97,7 +97,7 @@ public class PertFigure extends CompositeFigure {
 	}
 
 	protected void basicMoveBy(int x, int y) {
-		fDisplayBox.translate(fDisplayBox,x, y);
+		fDisplayBox = fDisplayBox.translate(x, y);
 		super.basicMoveBy(x, y);
 	}
 

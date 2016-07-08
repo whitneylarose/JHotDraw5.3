@@ -258,6 +258,7 @@ public class DragNDropTool extends AbstractTool implements DropTargetListener,
 	public void mouseDrag(MouseEvent e, int x, int y) {
 		if (fChild != null) // JDK1.1 doesn't guarantee mouseDown, mouseDrag, mouseUp
 			fChild.mouseDrag(e, x, y);
+
 	}
 
 	/**

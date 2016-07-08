@@ -244,8 +244,8 @@ public abstract class AbstractFigure implements Figure {
 	public void invalidate() {
 		if (fListener != null) {
 			ImmutableRectangle r = displayBox();
-			r.grow(Handle.HANDLESIZE, Handle.HANDLESIZE);
-			fListener.figureInvalidated(new FigureChangeEvent(this, r));
+			ImmutableRectangle displayBoxWithHandles = r.grow(Handle.HANDLESIZE, Handle.HANDLESIZE);
+			fListener.figureInvalidated(new FigureChangeEvent(this, displayBoxWithHandles));
 		}
 	}
 
